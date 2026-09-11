@@ -1,0 +1,716 @@
+/* ============================================
+   MUSHAK: MODAK MISSION - STYLESHEET
+   A festive Ganesh Chaturthi browser game
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f5a623 0%, #d97706 50%, #b45309 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+    overflow: hidden;
+}
+
+/* ============================================
+   SCREEN MANAGEMENT
+   ============================================ */
+
+.screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5a623 0%, #d97706 50%, #b45309 100%);
+    z-index: 100;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.screen.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.screen-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   TYPOGRAPHY & HEADINGS
+   ============================================ */
+
+h1 {
+    font-size: 3em;
+    color: #d97706;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 2.5em;
+    color: #d97706;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    font-size: 1.3em;
+    color: #b45309;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.game-title {
+    font-size: 2.5em;
+    background: linear-gradient(135deg, #f5a623, #d97706);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 5px;
+}
+
+.game-subtitle {
+    font-size: 1.5em;
+    color: #d97706;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.game-description {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+.version-text {
+    font-size: 0.9em;
+    color: #999;
+    margin-top: 20px;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn {
+    padding: 12px 24px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #f5a623, #d97706);
+    color: white;
+    margin: 10px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #e5e7eb, #d1d5db);
+    color: #333;
+    margin: 10px;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 0.9em;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+@media (min-width: 600px) {
+    .button-group {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+/* ============================================
+   INSTRUCTIONS
+   ============================================ */
+
+.instructions {
+    text-align: left;
+    margin: 20px 0;
+}
+
+.instruction-section {
+    background: #f9fafb;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border-left: 4px solid #f5a623;
+}
+
+.instruction-section ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.instruction-section li {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.instruction-section li:before {
+    content: "✓ ";
+    color: #f5a623;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* ============================================
+   LEADERBOARD
+   ============================================ */
+
+.leaderboard-list {
+    background: #f9fafb;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.leaderboard-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.leaderboard-entry:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-rank {
+    font-weight: bold;
+    color: #f5a623;
+    font-size: 1.2em;
+    min-width: 40px;
+}
+
+.leaderboard-name {
+    flex: 1;
+    text-align: left;
+    color: #333;
+    margin-left: 15px;
+}
+
+.leaderboard-score {
+    font-weight: bold;
+    color: #d97706;
+    font-size: 1.1em;
+}
+
+.empty-leaderboard {
+    color: #999;
+    padding: 20px;
+    text-align: center;
+}
+
+/* ============================================
+   GAME SCREEN
+   ============================================ */
+
+#gameScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5a623 0%, #d97706 50%, #b45309 100%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.game-header {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-bottom: 3px solid #f5a623;
+}
+
+.game-info {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.info-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    gap: 8px;
+}
+
+.info-item .label {
+    color: #fbbf24;
+}
+
+.info-item .value {
+    color: white;
+    font-size: 1.2em;
+}
+
+.game-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    overflow: hidden;
+}
+
+#gameCanvas {
+    border: 5px solid white;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #87ceeb 0%, #e0f6ff 100%);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+/* ============================================
+   MOBILE CONTROLS
+   ============================================ */
+
+.mobile-controls {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+}
+
+.mobile-controls.active {
+    display: flex;
+}
+
+.control-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #fbbf24, #f5a623);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.1s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.horizontal-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.up {
+    width: 50px;
+}
+
+.down {
+    width: 50px;
+}
+
+/* ============================================
+   GAME OVER & WIN SCREENS
+   ============================================ */
+
+.game-over-content {
+    animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5) rotateZ(-5deg);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) rotateZ(0);
+        opacity: 1;
+    }
+}
+
+.final-stats {
+    background: linear-gradient(135deg, #f5a623 0%, #d97706 100%);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    color: white;
+}
+
+.final-stats p {
+    color: white;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.score-value {
+    font-weight: bold;
+    font-size: 1.3em;
+    color: #fbbf24;
+}
+
+.celebration-text {
+    font-size: 1.3em;
+    color: #d97706;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   INPUT FIELDS
+   ============================================ */
+
+.input-group {
+    margin: 20px 0;
+}
+
+.input-group label {
+    display: block;
+    color: #555;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 15px;
+    border: 2px solid #d97706;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: 'Arial', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #f5a623;
+    box-shadow: 0 0 8px rgba(245, 166, 35, 0.3);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .screen-content {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+
+    h1 {
+        font-size: 2.2em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    .game-header {
+        padding: 10px 15px;
+    }
+
+    .info-item {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+
+    .game-info {
+        gap: 10px;
+    }
+
+    .game-container {
+        padding: 5px;
+    }
+
+    #gameCanvas {
+        border-width: 3px;
+    }
+
+    .mobile-controls.active {
+        display: flex;
+    }
+
+    .control-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+
+    .screen-content {
+        padding: 20px 15px;
+        border-radius: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 0.95em;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }
+
+    .game-header {
+        padding: 8px 10px;
+        gap: 8px;
+    }
+
+    .game-info {
+        gap: 5px;
+        width: 100%;
+    }
+
+    .info-item {
+        flex: 1;
+        padding: 5px 8px;
+        font-size: 0.8em;
+        min-width: 80px;
+    }
+
+    .info-item .value {
+        font-size: 1em;
+    }
+
+    .game-container {
+        padding: 3px;
+    }
+
+    #gameCanvas {
+        border-width: 2px;
+    }
+
+    .mobile-controls.active {
+        padding: 10px;
+        gap: 5px;
+    }
+
+    .control-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1em;
+    }
+
+    .instruction-section {
+        padding: 10px;
+        font-size: 0.95em;
+    }
+
+    .instruction-section h3 {
+        font-size: 1.1em;
+    }
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+
+.leaderboard-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.leaderboard-list::-webkit-scrollbar-track {
+    background: #e5e7eb;
+    border-radius: 10px;
+}
+
+.leaderboard-list::-webkit-scrollbar-thumb {
+    background: #f5a623;
+    border-radius: 10px;
+}
+
+.leaderboard-list::-webkit-scrollbar-thumb:hover {
+    background: #d97706;
+}
+
+/* ============================================
+   ANIMATIONS & EFFECTS
+   ============================================ */
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.btn:hover {
+    animation: pulse 0.4s ease;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+button:focus {
+    outline: 3px solid #f5a623;
+    outline-offset: 2px;
+}
+
+input:focus {
+    outline: 3px solid #f5a623;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+    .btn-primary {
+        border: 2px solid #333;
+    }
+
+    .info-item {
+        border: 2px solid white;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
