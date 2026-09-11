@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mushak: Modak Mission</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Start Screen -->
+    <div id="startScreen" class="screen active">
+        <div class="screen-content">
+            <h1 class="game-title">🐭 Mushak: Modak Mission 🐭</h1>
+            <p class="game-subtitle">Ganpati Bappa Morya!</p>
+            <p class="game-description">
+                Help Mushak, Lord Ganesha's loyal companion, collect as many delicious modaks as possible!
+                Avoid obstacles, collect bonuses, and complete the level before time runs out.
+            </p>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="game.showHowToPlay()">📖 How to Play</button>
+                <button class="btn btn-primary" onclick="game.startGame()">🎮 Play Game</button>
+                <button class="btn btn-secondary" onclick="game.showLeaderboard()">🏆 Leaderboard</button>
+            </div>
+            <p class="version-text">A festive game for Ganesh Chaturthi 2024</p>
+        </div>
+    </div>
+
+    <!-- How to Play Screen -->
+    <div id="howToPlayScreen" class="screen">
+        <div class="screen-content">
+            <h2>How to Play</h2>
+            <div class="instructions">
+                <div class="instruction-section">
+                    <h3>🎮 Controls</h3>
+                    <p><strong>Desktop:</strong> Arrow Keys or WASD to move</p>
+                    <p><strong>Mobile:</strong> Use on-screen arrow buttons or swipe</p>
+                </div>
+                
+                <div class="instruction-section">
+                    <h3>🎯 Objective</h3>
+                    <ul>
+                        <li>Collect 50 modaks to complete the level</li>
+                        <li>Avoid obstacles that block your path</li>
+                        <li>Grab bonus items for extra points</li>
+                        <li>Complete the level before time runs out</li>
+                    </ul>
+                </div>
+
+                <div class="instruction-section">
+                    <h3>✨ Scoring</h3>
+                    <ul>
+                        <li>🍪 Normal Modak = +10 points</li>
+                        <li>💎 Bonus Item = +25 points</li>
+                        <li>❤️ Lose a life when hit by obstacle</li>
+                    </ul>
+                </div>
+
+                <div class="instruction-section">
+                    <h3>🎪 Game Features</h3>
+                    <ul>
+                        <li>3 lives to complete the level</li>
+                        <li>Difficulty increases as you progress</li>
+                        <li>Celebration when you win!</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="game.backToMenu()">← Back to Menu</button>
+        </div>
+    </div>
+
+    <!-- Leaderboard Screen -->
+    <div id="leaderboardScreen" class="screen">
+        <div class="screen-content">
+            <h2>🏆 Top Scores</h2>
+            <div id="leaderboardList" class="leaderboard-list">
+                <!-- Leaderboard entries will be inserted here -->
+            </div>
+            <button class="btn btn-primary" onclick="game.backToMenu()">← Back to Menu</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="screen">
+        <div class="game-header">
+            <div class="game-info">
+                <div class="info-item">
+                    <span class="label">Score:</span>
+                    <span id="scoreDisplay" class="value">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Modaks:</span>
+                    <span id="modaksDisplay" class="value">0/50</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Time:</span>
+                    <span id="timerDisplay" class="value">120s</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Lives:</span>
+                    <span id="livesDisplay" class="value">❤️❤️❤️</span>
+                </div>
+            </div>
+            <button class="btn btn-small" onclick="game.toggleMute()" id="muteBtn">🔊 Mute</button>
+        </div>
+
+        <!-- Game Canvas -->
+        <div class="game-container">
+            <canvas id="gameCanvas"></canvas>
+        </div>
+
+        <!-- Mobile Controls -->
+        <div id="mobileControls" class="mobile-controls">
+            <button class="control-btn up" onmousedown="game.handleKeyDown({key: 'ArrowUp'})" onmouseup="game.handleKeyUp({key: 'ArrowUp'})" ontouchstart="game.handleKeyDown({key: 'ArrowUp'})" ontouchend="game.handleKeyUp({key: 'ArrowUp'})">⬆️</button>
+            <div class="horizontal-controls">
+                <button class="control-btn left" onmousedown="game.handleKeyDown({key: 'ArrowLeft'})" onmouseup="game.handleKeyUp({key: 'ArrowLeft'})" ontouchstart="game.handleKeyDown({key: 'ArrowLeft'})" ontouchend="game.handleKeyUp({key: 'ArrowLeft'})">⬅️</button>
+                <button class="control-btn down" onmousedown="game.handleKeyDown({key: 'ArrowDown'})" onmouseup="game.handleKeyUp({key: 'ArrowDown'})" ontouchstart="game.handleKeyDown({key: 'ArrowDown'})" ontouchend="game.handleKeyUp({key: 'ArrowDown'})">⬇️</button>
+                <button class="control-btn right" onmousedown="game.handleKeyDown({key: 'ArrowRight'})" onmouseup="game.handleKeyUp({key: 'ArrowRight'})" ontouchstart="game.handleKeyDown({key: 'ArrowRight'})" ontouchend="game.handleKeyUp({key: 'ArrowRight'})">➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverScreen" class="screen">
+        <div class="screen-content game-over-content">
+            <h2 id="gameOverTitle">Game Over!</h2>
+            <div class="final-stats">
+                <p>Final Score: <span id="finalScore" class="score-value">0</span></p>
+                <p>Modaks Collected: <span id="finalModaks" class="score-value">0</span></p>
+                <p id="performanceText"></p>
+            </div>
+            <div class="input-group">
+                <label for="playerName">Enter your name for leaderboard:</label>
+                <input type="text" id="playerName" placeholder="Your Name" maxlength="20">
+            </div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="game.saveAndRestart()">Play Again</button>
+                <button class="btn btn-secondary" onclick="game.backToMenu()">Main Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Win Screen -->
+    <div id="winScreen" class="screen">
+        <div class="screen-content game-over-content">
+            <h2>🎉 Level Complete! 🎉</h2>
+            <p class="celebration-text">Ganpati Bappa Morya!</p>
+            <div class="final-stats">
+                <p>Final Score: <span id="winScore" class="score-value">0</span></p>
+                <p>Time Remaining: <span id="winTime" class="score-value">0s</span></p>
+                <p>Lives Remaining: <span id="winLives" class="score-value">0</span></p>
+            </div>
+            <div class="input-group">
+                <label for="winPlayerName">Enter your name for leaderboard:</label>
+                <input type="text" id="winPlayerName" placeholder="Your Name" maxlength="20">
+            </div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="game.saveWinAndRestart()">Play Again</button>
+                <button class="btn btn-secondary" onclick="game.backToMenu()">Main Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pause Screen -->
+    <div id="pauseScreen" class="screen">
+        <div class="screen-content">
+            <h2>⏸️ Game Paused</h2>
+            <p>Click below to continue playing</p>
+            <button class="btn btn-primary" onclick="game.togglePause()">▶️ Resume Game</button>
+            <button class="btn btn-secondary" onclick="game.backToMenu()">🏠 Main Menu</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
